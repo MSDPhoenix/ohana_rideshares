@@ -7,7 +7,11 @@ from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt(app)
 
-@app.route('/')
+@app.route("/")
 def index():
+    return render_template("index.htm")
 
-    return render_template('index.html')
+@app.route("/register/",methods=["POST"])
+def register():
+    if not User.validate(request.form):
+        session["xxx"] = request.form["xxx"]
