@@ -7,3 +7,9 @@
     font-size:xx-large;
     outline:1px red dashed;
 }
+input {
+    border:black 3px solid;
+}
+input[type="submit"] {
+    box-shadow: 5px 5px 5px black;
+}
