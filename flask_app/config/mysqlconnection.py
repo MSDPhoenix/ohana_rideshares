@@ -2,9 +2,10 @@ import pymysql.cursors
 
 class MySQLConnection:
     def __init__(self,db):
-        connection = pymsql.connect(host = 'localhost',
+        connection = pymysql.connect(host = 'localhost',
                                     user = 'root',
                                     password = '6469Mysql',
+                                    db=db,
                                     charset = 'utf8mb4',
                                     cursorclass = pymysql.cursors.DictCursor,
                                     autocommit = True)

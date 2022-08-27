@@ -11,12 +11,12 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 class User:
     def __init__(self,data):
         self.id = data['id']
-        self.first_name = data['id']
-        self.last_name = data['id']
-        self.email = data['id']
-        self.password = data['id']
-        self.created_at = data['id']
-        self.updated_at = data['id']
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.email = data['email']
+        self.password = data['password']
+        self.created_at = data['created_at']
+        self.updated_at = data['updated_at']
         self.rides = []
         self.messages = []
 
@@ -36,6 +36,8 @@ class User:
                 SELECT * FROM users WHERE email = %(email)s;
                 """
         result = connectToMySQL(db).query_db(query,data)
+        if len(result) == 0:
+            return False
         user = cls(result[0])
         return user
 

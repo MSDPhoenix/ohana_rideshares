@@ -11,6 +11,18 @@ bcrypt = Bcrypt(app)
 def index():
     return render_template("index.html")
 
+@app.route("/dashboard/")
+def dashboard():
+    if "user_id" not in session:
+        return redirect("/")
+    user_data = {
+        "user_id" : session["user_id"]
+    }
+    user=User.get_by_id(user_data)
+    print("A")
+    print(user.first_name)
+    return render_template("dashboard.html",user=user)
+
 @app.route("/register/",methods=["POST"])
 def register():
     if not User.validate(request.form):

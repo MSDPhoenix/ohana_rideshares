@@ -13,3 +13,9 @@ input {
 input[type="submit"] {
     box-shadow: 5px 5px 5px black;
 }
+#add_ride {
+    height:30px;
+}
+.orange {
+    color:orange;
+}
