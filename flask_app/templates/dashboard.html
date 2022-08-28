@@ -17,14 +17,6 @@
                     <div class="col-5">Rider:</div>
                     <div class="col-7">ride.rider.first_name</div>
                 </div>
-                <div class="row">
-                    <div class="col-5">Rider:</div>
-                    <div class="col-7">ride.rider.first_name</div>
-                </div>
-                <div class="row">
-                    <div class="col-5">Rider:</div>
-                    <div class="col-7">ride.rider.first_name</div>
-                </div>
             {% endfor %}
         </div>
     </div>
@@ -32,8 +24,11 @@
         <h4 class="text-center fst-italic orange">Booked Rideshares</h4>
         <div class="row mb-3">
             {% for ride in booked_rides %}
-
-            {% endfor%} 
+                <div class="row mb-3">
+                    <p class="">ride.driver.first_name is driving ride.rider.first_name</p>
+                    <p class="xxx">to ride.destination on ride.date</p>
+                </div>
+            {% endfor %} 
         </div>
     </div>
 </div>
