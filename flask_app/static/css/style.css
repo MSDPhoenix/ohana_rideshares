@@ -19,3 +19,9 @@ input[type="submit"] {
 .orange {
     color:orange;
 }
+.w-min {
+    width:max-content;
+}
+.bg-yellow {
+    background-color: #FFE599;
+}

@@ -85,3 +85,12 @@ def rides_remove(ride_id):
         "ride_id" : ride_id
     }
     Ride.delete(data)
+
+@app.route("/add_driver/<int:ride_id>/<int:driver_id>/")
+def add_driver(ride_id,driver_id):
+    data = {
+        "ride_id" : ride_id,
+        "driver_id" : driver_id,
+    }
+    Ride.add_driver(data)
+    return redirect("/dashboard/")

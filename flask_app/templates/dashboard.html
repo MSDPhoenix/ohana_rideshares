@@ -15,17 +15,21 @@
             <div class="row mb-3 ms-3 fs-6">
                 {% for ride in rides %}
                     {% if ride.driver == None %}
+                        {% if ride.rider.id == user.id %}
+                        <div class="row mb-2 p-1 border border-dark border-3 bg-yellow">
+                        {% else %}
                         <div class="row mb-2 p-1 border border-dark border-3">
-                            <p class="col-5 mb-1">Rider:</p>
-                            <p class="col-7 mb-1">{{ride.rider.first_name}}</p>
-                            <p class="col-5 mb-1">Destination:</p>
-                            <p class="col-7 mb-1">{{ride.destination}}</p>
-                            <p class="col-5 mb-1">When needed:</p>
-                            <p class="col-7 mb-1">{{ride.date.strftime("%B %-d")}}</p>
+                        {% endif %}
+                            <p class="col-4 mb-1">Rider:</p>
+                            <p class="col-8 mb-1">{{ride.rider.first_name}}</p>
+                            <p class="col-4 mb-1">Destination:</p>
+                            <p class="col-8 mb-1">{{ride.destination}}</p>
+                            <p class="col-4 mb-1">When needed:</p>
+                            <p class="col-8 mb-1">{{ride.date.strftime("%B %-d")}}</p>
                             {% if ride.rider.id == user.id %}
-                                <a href="/rides_remove/{{ride.id}}">DELETE</a>
+                                <a class="ms-auto me-2 w-min" href="/rides_remove/{{ride.id}}/">DELETE</a>
                             {% else %}
-                                <a href="/add_driver/{{ride.id]}">I can drive!</a>
+                                <a class="ms-auto me-2 w-min" href="/add_driver/{{ride.id}}/{{user.id}}/">I can drive!</a>
                             {% endif %}
                         </div>
                     {% endif %}
@@ -36,12 +40,30 @@
             <h4 class="text-center fst-italic orange">Booked Rideshares</h4>
             <div class="row mb-3">
                 {% for ride in rides %}
-                    {#{% if ride.driver != None %}#}
-                        <div class="row mb-3 p-1 border border-dark border-3">
-                            <p class="mb-1">{{ride.driver.first_name}} is driving {{ride.rider.first_name}}</p>
-                            <p class="mb-1">to {{ride.destination}} on {{ride.date.strftime("%B %-d")}}</p>
-                        </div>
-                    {#{% endif %}#}
+                    {% if ride.driver != None %}
+                        {% if ride.rider.id == user.id %}
+                            <div class="row mb-3 p-1 border border-dark border-3 bg-yellow">
+                                <p class="mb-1"><b>You</b> are riding with <b>{{ride.rider.first_name}}</b></p>
+                                <p class="mb-1">to {{ride.destination}} on {{ride.date.strftime("%B %-d")}}</p>
+                                <a href="/rides_one/{{ride.id}}/">Details</a>
+                            </div>
+                        {% elif ride.driver.id == user.id %}
+                            <div class="row mb-3 p-1 border border-dark border-3 bg-yellow">
+                                <p class="mb-1"><b>You</b> are driving <b>{{ride.rider.first_name}}</b></p>
+                                <p class="mb-1">to {{ride.destination}} on {{ride.date.strftime("%B %-d")}}</p>
+                                <div class="d-flex align-items-center justify-content-start">
+                                    <a href="/rides_one/{{ride.id}}/">Details</a>
+                                    <span class="mx-2">|</span>
+                                    <a href="/rides_cancel/{{ride.id}}">Cancel</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="row mb-3 p-1 border border-dark border-3">
+                                <p class="mb-1"><b>{{ride.driver.first_name}}</b> is driving <b>{{ride.rider.first_name}}</b></p>
+                                <p class="mb-1">to {{ride.destination}} on {{ride.date.strftime("%B %-d")}}</p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
                 {% endfor %} 
             </div>
         </div>

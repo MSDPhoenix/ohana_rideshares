@@ -73,14 +73,23 @@ class Ride:
             rides.append(this_ride)
         return rides
 
-
-
+    @classmethod
+    def delete(cls,data):
+        query = """
+                DELETE FROM rides
+                WHERE id = %(ride_id)s;
+                """
+        return connectToMySQL(db).query_db(query,data)
 
     @classmethod
-    def delete(data):
+    def add_driver(cls,data):
         query = """
-                
+                UPDATE rides 
+                SET driver_id = %(driver_id)s
+                WHERE id = %(ride_id)s;
                 """
+        return connectToMySQL(db).query_db(query,data)
+
 
 
 
