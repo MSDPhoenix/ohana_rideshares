@@ -1,34 +1,49 @@
 {% extends "index.html" %}
 
 {% block body %}
-<div class="d-flex align-items-center justify-content-between mx-4 mb-4 py-2 border-bottom border-dark border-3">
-    <h6 class="py-1 mb-0">Welcome {{user.first_name}}</h6>
-    <img id="add_ride" class="ms-auto" src="{{url_for('static',filename='images/banana.png')}}" alt="request a ride">
-    <a class="ms-2 fst-italic " href="/rides_new/">Request a Ride</a>
-    <a class="ms-5" href="/logout/">log out</a>
-</div>
-
-<div class="row mb-3">
-    <div class="col mx-4">
-        <h4 class="text-center fst-italic orange">Rideshare Requests</h4>
-        <div class="row mb-3">
-            {% for ride in requested_rides %}
-                <div class="row mb-3">
-                    <div class="col-5">Rider:</div>
-                    <div class="col-7">ride.rider.first_name</div>
-                </div>
-            {% endfor %}
-        </div>
+<div class="ms-3">
+    <div class="d-flex align-items-center justify-content-between mx-4 mb-4 py-2 border-bottom border-dark border-3">
+        <h6 class="py-1 mb-0">Welcome {{user.first_name}}</h6>
+        <img id="add_ride" class="ms-auto" src="{{url_for('static',filename='images/banana.png')}}" alt="request a ride">
+        <a class="ms-2 fst-italic " href="/rides_new/">Request a Ride</a>
+        <a class="ms-5" href="/logout/">log out</a>
     </div>
-    <div class="col mx-4">
-        <h4 class="text-center fst-italic orange">Booked Rideshares</h4>
-        <div class="row mb-3">
-            {% for ride in booked_rides %}
-                <div class="row mb-3">
-                    <p class="">ride.driver.first_name is driving ride.rider.first_name</p>
-                    <p class="xxx">to ride.destination on ride.date</p>
-                </div>
-            {% endfor %} 
+
+    <div class="row mb-3">
+        <div class="col ms-4">
+            <h4 class="text-center fst-italic orange">Rideshare Requests</h4>
+            <div class="row mb-3 ms-3 fs-6">
+                {% for ride in rides %}
+                    {% if ride.driver == None %}
+                        <div class="row mb-2 p-1 border border-dark border-3">
+                            <p class="col-5 mb-1">Rider:</p>
+                            <p class="col-7 mb-1">{{ride.rider.first_name}}</p>
+                            <p class="col-5 mb-1">Destination:</p>
+                            <p class="col-7 mb-1">{{ride.destination}}</p>
+                            <p class="col-5 mb-1">When needed:</p>
+                            <p class="col-7 mb-1">{{ride.date.strftime("%B %-d")}}</p>
+                            {% if ride.rider.id == user.id %}
+                                <a href="/rides_remove/{{ride.id}}">DELETE</a>
+                            {% else %}
+                                <a href="/add_driver/{{ride.id]}">I can drive!</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col mx-4">
+            <h4 class="text-center fst-italic orange">Booked Rideshares</h4>
+            <div class="row mb-3">
+                {% for ride in rides %}
+                    {#{% if ride.driver != None %}#}
+                        <div class="row mb-3 p-1 border border-dark border-3">
+                            <p class="mb-1">{{ride.driver.first_name}} is driving {{ride.rider.first_name}}</p>
+                            <p class="mb-1">to {{ride.destination}} on {{ride.date.strftime("%B %-d")}}</p>
+                        </div>
+                    {#{% endif %}#}
+                {% endfor %} 
+            </div>
         </div>
     </div>
 </div>

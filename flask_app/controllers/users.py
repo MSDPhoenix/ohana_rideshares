@@ -1,7 +1,7 @@
 from flask_app import app
 from flask import render_template, redirect,request,session,flash
 from flask_app.models.user import User
-# from flask_app.models.ride import Ride
+from flask_app.models.ride import Ride
 # from flask_app.models.message import message
 from flask_bcrypt import Bcrypt
 
@@ -18,8 +18,9 @@ def dashboard():
     user_data = {
         "user_id" : session["user_id"]
     }
-    user=User.get_by_id(user_data)
-    return render_template("dashboard.html",user=user)
+    user = User.get_by_id(user_data)
+    rides = Ride.get_all()
+    return render_template("dashboard.html",user=user,rides=rides)
 
 @app.route("/register/",methods=["POST"])
 def register():
