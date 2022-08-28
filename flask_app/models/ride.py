@@ -6,39 +6,40 @@ from flask_app.models import message
 from flask_app.config.mysqlconnection import connectToMySQL
 db = "ohana_rideshares"
 
-class Message:
+class Ride:
     def __init__(self,data):
         self.id = data["id"]
-        self.content = data["id"]
-        self.sender_id = data["id"]
-        self.ride_id = data["id"]
-        self.created_at = data["id"]
-        self.updated_at = data["id"]
-        self.sender = None
+        self.destination = data["destination"]
+        self.pick_up_location = data["pick_up_location"]
+        self.details = data["details"]
+        self.date = data["date"]
+        self.rider_id = data["rider_id"]
+        self.driver_id = data["driver_id"]
+        self.created_at = data["created_at"]
+        self.updated_at = data["updated_at"]
+        self.rider = None
+        self.driver_id = None
+        self.messages = []
 
-    @classmethod
-    def get_messages_for_this_ride(cls,data):
-        query = """
-                SELECT * FROM messages WHERE ride_id = %(ride_id)s;
-                """
-        result = connectToMySQL(db).query_db(query,data)
-        messages = []
-        for row in result:
-            this_message = cls(row)
-            messages.append(this_message)
-        return messages
-    
     @classmethod
     def save(cls,data):
         query = """
-                INSERT INTO messages
-                (content,sender_id,ride_id)
-                VALUES
-                (%(content)s,%(sender_id)s,%(ride_id)s)
+                INSERT INTO rides
+                (destination,pick_up_location,details,rider_id,date)
+                VALUES 
+                (%(destination)s,%(pick_up_location)s,%(details)s,%(rider_id)s,%(date)s);
                 """
-        user_id = connectToMySQL(db).query_db(query,data)
-        return user_id
-    
+        ride_id = connectToMySQL(db).query_db(query,data)
+        return ride_id
+
     @classmethod
-    def delete(cls,data):
+    def xxx(cls,data):
         pass
+
+    @staticmethod
+    def validate(data):
+        is_valid = True
+        return is_valid
+
+
+

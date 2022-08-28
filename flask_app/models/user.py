@@ -59,7 +59,7 @@ class User:
                 INSERT INTO users 
                 (email,first_name,last_name,password)
                 VALUES
-                (%(email)s,%(first_name)s,%(last_name)s,%(password)s)
+                (%(email)s,%(first_name)s,%(last_name)s,%(password)s);
                 """
         user_id = connectToMySQL(db).query_db(query,data)
         return user_id
