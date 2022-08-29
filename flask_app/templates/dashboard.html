@@ -27,7 +27,7 @@
                             <p class="col-4 mb-1">When needed:</p>
                             <p class="col-8 mb-1">{{ride.date.strftime("%B %-d")}}</p>
                             {% if ride.rider.id == user.id %}
-                                <a class="ms-auto me-2 w-min" href="/rides_remove/{{ride.id}}/">DELETE</a>
+                                <a class="ms-auto me-2 w-min" href="/rides_delete/{{ride.id}}/">DELETE</a>
                             {% else %}
                                 <a class="ms-auto me-2 w-min" href="/add_driver/{{ride.id}}/{{user.id}}/">I can drive!</a>
                             {% endif %}
@@ -54,7 +54,7 @@
                                 <div class="d-flex align-items-center justify-content-start">
                                     <a href="/rides_one/{{ride.id}}/">Details</a>
                                     <span class="mx-2">|</span>
-                                    <a href="/rides_cancel/{{ride.id}}">Cancel</a>
+                                    <a href="/rides_cancel/{{ride.id}}/">Cancel</a>
                                 </div>
                             </div>
                         {% else %}

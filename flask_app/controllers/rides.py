@@ -92,5 +92,29 @@ def add_driver(ride_id,driver_id):
         "ride_id" : ride_id,
         "driver_id" : driver_id,
     }
-    Ride.add_driver(data)
+    Ride.update_driver(data)
     return redirect("/dashboard/")
+
+@app.route("/rides_delete/<int:ride_id>/")
+def rides_delete(ride_id):
+    if "user_id" not in session:
+        return redirect("/")
+    data = {
+        "ride_id" : ride_id
+    }
+    Ride.delete(data)
+    return redirect("/dashboard/")
+
+@app.route("/rides_cancel/<int:ride_id>/")
+def rides_cancel(ride_id):
+    if "user_id" not in session:
+        return redirect("/")
+    data = {
+        "ride_id" : ride_id,
+        "driver_id" : None,
+    }
+    Ride.update_driver(data)
+    return redirect("/dashboard/")
+
+
+

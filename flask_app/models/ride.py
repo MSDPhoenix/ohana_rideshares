@@ -39,7 +39,8 @@ class Ride:
                 LEFT JOIN users AS rider
                 ON rider.id = rides.rider_id
                 LEFT JOIN users AS driver
-                ON driver.id = rides.driver_id;
+                ON driver.id = rides.driver_id
+                ORDER BY date;
                 """
         result = connectToMySQL(db).query_db(query)
         print("A")
@@ -82,7 +83,7 @@ class Ride:
         return connectToMySQL(db).query_db(query,data)
 
     @classmethod
-    def add_driver(cls,data):
+    def update_driver(cls,data):
         query = """
                 UPDATE rides 
                 SET driver_id = %(driver_id)s
