@@ -18,7 +18,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.rides = []
-        self.messages = []
+        # self.messages = []
 
     @classmethod
     def get_by_id(cls,data):

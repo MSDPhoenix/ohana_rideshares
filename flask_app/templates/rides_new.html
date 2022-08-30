@@ -3,8 +3,8 @@
 {% block body %}
 <div class="d-flex justify-content-between align-items-center mx-4 mb-4 py-2">
     <h3 class="xxx">Request a Ride</h3>
-    <a href="" class="ms-auto me-5">home</a>
-    <a href="" class="ms-5">logout</a>
+    <a href="/dashboard/" class="ms-auto me-5">home</a>
+    <a href="/logout/" class="ms-5">logout</a>
 </div>
 <form class="container" action="/rides_add/" method="post">
     {% with errors=get_flashed_messages(category_filter=["request"]) %}

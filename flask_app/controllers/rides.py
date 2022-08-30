@@ -5,10 +5,12 @@ from flask_app.models.ride import Ride
 from flask_app.models.message import Message
 
 def user():
-    user_data = {
-        "user_id" : session["user_id"]
-    }
+    user_data = { "user_id" : session["user_id"] }
     return User.get_by_id(user_data)
+
+def ride(ride_id):
+    ride_data = { "ride_id" : ride_id }
+    return Ride.get_by_id(ride_data)
 
 def validation_failed(data):
         session["destination"] = data["destination"]
@@ -44,13 +46,13 @@ def rides_new():
 def rides_one(ride_id):
     if "user_id" not in session:
         return redirect("/")
-    return render_template("rides_one.html",user=user())
+    return render_template("rides_one.html",user=user(),ride=ride(ride_id))
 
 @app.route("/rides_edit/<int:ride_id>/")
 def ride_edit(ride_id):
     if "user_id" not in session:
         return redirect("/")
-    return render_template("rides_edit.html",user=user())
+    return render_template("rides_edit.html",user=user(),ride=ride(ride_id))
 
 @app.route("/rides_add/",methods=["POST"])
 def rides_add():
@@ -78,13 +80,6 @@ def rides_add():
     data = validation_succeeded(request.form)
     Ride.save(data)
     return redirect("/dashboard/")
-
-@app.route("/rides_remove/<int:ride_id>")
-def rides_remove(ride_id):
-    data = {
-        "ride_id" : ride_id
-    }
-    Ride.delete(data)
 
 @app.route("/add_driver/<int:ride_id>/<int:driver_id>/")
 def add_driver(ride_id,driver_id):

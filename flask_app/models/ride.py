@@ -43,12 +43,8 @@ class Ride:
                 ORDER BY date;
                 """
         result = connectToMySQL(db).query_db(query)
-        print("A")
         rides = []
         for row in result:
-            for item in row:
-                print(item,"\t\t",row[item])
-                # print("      = ",row[item])
             this_ride = cls(row)
             rider_data = {
                 "id" : row["rider.id"],
@@ -91,7 +87,39 @@ class Ride:
                 """
         return connectToMySQL(db).query_db(query,data)
 
-
+    @classmethod
+    def get_by_id(cls,data):
+        query = """
+                SELECT * FROM rides 
+                LEFT JOIN users AS driver
+                ON rides.driver_id = driver.id
+                LEFT JOIN users AS rider
+                ON rides.rider_id = rider.id
+                WHERE rides.id = %(ride_id)s;
+                """
+        result = connectToMySQL(db).query_db(query,data)
+        ride = cls(result[0])
+        rider_data = {
+            "id" : result[0]["rider.id"],
+            "first_name" : result[0]["rider.first_name"],
+            "last_name" : result[0]["rider.last_name"],
+            "email" : result[0]["rider.email"],
+            "password" : result[0]["rider.password"],
+            "created_at" : result[0]["rider.created_at"],
+            "updated_at" : result[0]["rider.updated_at"],
+        }
+        driver_data = {
+            "id" : result[0]["driver.id"],
+            "first_name" : result[0]["first_name"],
+            "last_name" : result[0]["last_name"],
+            "email" : result[0]["email"],
+            "password" : result[0]["password"],
+            "created_at" : result[0]["driver.created_at"],
+            "updated_at" : result[0]["driver.updated_at"],
+        }
+        ride.rider = user.User(rider_data)
+        ride.driver = user.User(driver_data)
+        return ride
 
 
 

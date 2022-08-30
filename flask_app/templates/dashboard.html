@@ -43,7 +43,7 @@
                     {% if ride.driver != None %}
                         {% if ride.rider.id == user.id %}
                             <div class="row mb-3 p-1 border border-dark border-3 bg-yellow">
-                                <p class="mb-1"><b>You</b> are riding with <b>{{ride.rider.first_name}}</b></p>
+                                <p class="mb-1"><b>{{ride.driver.first_name}}</b> is driving <b>You</b></p>
                                 <p class="mb-1">to {{ride.destination}} on {{ride.date.strftime("%B %-d")}}</p>
                                 <a href="/rides_one/{{ride.id}}/">Details</a>
                             </div>
