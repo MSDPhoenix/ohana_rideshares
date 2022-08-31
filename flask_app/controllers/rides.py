@@ -46,7 +46,11 @@ def rides_new():
 def rides_one(ride_id):
     if "user_id" not in session:
         return redirect("/")
-    return render_template("rides_one.html",user=user(),ride=ride(ride_id))
+    data = {
+        "ride_id" : ride_id
+    }
+    messages = Message.get_messages(data)
+    return render_template("rides_one.html",user=user(),ride=ride(ride_id),messages=messages)
 
 @app.route("/rides_edit/<int:ride_id>/")
 def ride_edit(ride_id):

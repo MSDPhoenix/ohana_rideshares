@@ -25,3 +25,9 @@ input[type="submit"] {
 .bg-yellow {
     background-color: #FFE599;
 }
+.purple {
+    color:purple;
+}
+.bg_purple {
+    background-color: purple;
+}
