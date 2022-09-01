@@ -19,7 +19,7 @@ class Ride:
         self.updated_at = data["updated_at"]
         self.rider = None
         self.driver = None
-        self.messages = []
+        # self.messages = []
 
     @classmethod
     def save(cls,data):
@@ -97,14 +97,7 @@ class Ride:
                 ON rides.rider_id = rider.id
                 WHERE rides.id = %(ride_id)s;
                 """
-                # LEFT JOIN messages
-                # ON messages.ride_id = rides.id
         result = connectToMySQL(db).query_db(query,data)
-        # print("A")
-        # for row in result:
-        #     print(row)
-        #     for key in row:
-        #         print(key,"\t\t",row[key])
         ride = cls(result[0])
         rider_data = {
             "id" : result[0]["rider.id"],

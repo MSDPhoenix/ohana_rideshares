@@ -7,7 +7,7 @@
     font-size:x-large;
     outline:1px red dashed;
 }
-input {
+input, textarea {
     border:black 3px solid;
 }
 input[type="submit"] {

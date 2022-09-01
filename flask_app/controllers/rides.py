@@ -65,43 +65,21 @@ def rides_add():
     if not Ride.validate(request.form):
         validation_failed(request.form)
         return redirect("/rides_new/")
-    # if "name" in session:
-    #     session.pop("name")
-    # if "pick_up_location" in session:
-    #     session.pop("pick_up_location")
-    # if "date" in session:
-    #     session.pop("date")
-    # if "details" in session:
-    #     session.pop("details")
-    # data = {
-    #     "destination" : request.form["destination"],
-    #     "pick_up_location" : request.form["pick_up_location"],
-    #     "details" : request.form["details"],
-    #     "date" : request.form["date"],
-    #     "rider_id" : session["user_id"],
-    # }
-
     data = validation_succeeded(request.form)
     Ride.save(data)
     return redirect("/dashboard/")
 
+# COMBINE 2 INTO 1 INTO UPDATE DRIVER?
+
 @app.route("/add_driver/<int:ride_id>/<int:driver_id>/")
 def add_driver(ride_id,driver_id):
+    if "user_id" not in session:
+        return redirect("/")
     data = {
         "ride_id" : ride_id,
         "driver_id" : driver_id,
     }
     Ride.update_driver(data)
-    return redirect("/dashboard/")
-
-@app.route("/rides_delete/<int:ride_id>/")
-def rides_delete(ride_id):
-    if "user_id" not in session:
-        return redirect("/")
-    data = {
-        "ride_id" : ride_id
-    }
-    Ride.delete(data)
     return redirect("/dashboard/")
 
 @app.route("/rides_cancel/<int:ride_id>/")
@@ -114,6 +92,19 @@ def rides_cancel(ride_id):
     }
     Ride.update_driver(data)
     return redirect("/dashboard/")
+
+#______________________________________
+
+@app.route("/rides_delete/<int:ride_id>/")
+def rides_delete(ride_id):
+    if "user_id" not in session:
+        return redirect("/")
+    data = {
+        "ride_id" : ride_id
+    }
+    Ride.delete(data)
+    return redirect("/dashboard/")
+
 
 
 

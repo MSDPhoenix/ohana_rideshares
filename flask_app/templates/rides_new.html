@@ -14,15 +14,15 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <div class="row mb-3">
-        <label for="destination" class="col-5 mb-3">Destination</label>
-        <input type="text" name="destination" id="destination" class="col-7 mb-3" value="{{session['destination']}}">
-        <label for="pick_up_location" class="col-5 mb-3">Pick-up Location</label>
-        <input type="text" name="pick_up_location" id="pick_up_location" class="col-7 mb-3"  value="{{session['pick_up_location']}}">
-        <label for="date" class="col-5 mb-3">Rideshare Date</label>
-        <input type="date" name="date" id="date" class="col-7 mb-3"  value="{{session['date']}}">
-        <label for="details" class="col-5 mb-3">Details</label>
-        <input type="text" name="details" id="details" class="col-7 mb-3"  value="{{session['details']}}">
+    <div class="row mb-3 mx-5 px-5">
+        <label for="destination" class="col-3 mb-3">Destination</label>
+        <input type="text" name="destination" id="destination" class="col-9 mb-3 py-2" value="{{session['destination']}}">
+        <label for="pick_up_location" class="col-3 mb-3">Pick-up Location</label>
+        <input type="text" name="pick_up_location" id="pick_up_location" class="col-9 mb-3 py-2"  value="{{session['pick_up_location']}}">
+        <label for="date" class="col-3 mb-3">Rideshare Date</label>
+        <input type="date" name="date" id="date" class="col-9 mb-3 py-2"  value="{{session['date']}}">
+        <label for="details" class="col-3 mb-3">Details</label>
+        <textarea name="details" id="details" rows="5" class="col-9 mb-3 py-2">{{session['details']}}"</textarea>
         <input type="submit" value="Post" class="col-2 ms-auto">
     </div>
 </form>
