@@ -141,6 +141,31 @@ class Ride:
     @staticmethod
     def validate(data):
         is_valid = True
+        if len(data["destination"]) < 1:
+            flash("xxxx","request")
+            is_valid = False
+        elif len(data["destination"]) < 3:
+            flash("xxxx","request")
+            is_valid = False
+        if len(data["pick_up_location"]) < 1:
+            flash("xxxx","request")
+            is_valid = False
+        elif len(data["pick_up_location"]) < 3:
+            flash("xxxx","request")
+            is_valid = False
+        if len(data["details"]) < 1:
+            flash("xxxx","request")
+            is_valid = False
+        elif len(data["details"]) < 10:
+            flash("xxxx","request")
+            is_valid = False
+        if len(data["date"]) < 1:
+            flash("xxxx","request")
+            is_valid = False
+        # elif len(data["details"]) < 3:
+        #     flash("xxxx","request")
+        #     is_valid = False
+        
 
 
 

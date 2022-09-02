@@ -1,3 +1,4 @@
+from wsgiref import validate
 from flask_app import app
 from flask import render_template,redirect,request,session,flash
 from flask_app.models.user import User
@@ -20,7 +21,7 @@ def validation_failed(data):
 
 def validation_succeeded(data):
     if "name" in session:
-        session.pop("name")
+        session.pop("name") # if name in session ??
     if "pick_up_location" in session:
         session.pop("pick_up_location")
     if "date" in session:
@@ -32,7 +33,8 @@ def validation_succeeded(data):
         "pick_up_location" : data["pick_up_location"],
         "details" : data["details"],
         "date" : data["date"],
-        "rider_id" : session["user_id"],
+        "ride_id" : data["ride_id"],
+        "rider_id" : session["user_id"],   ######################
     }
     return data
 
@@ -83,11 +85,16 @@ def rides_delete(ride_id):
 def rides_update(ride_id):
     if "user_id" not in session:
         return redirect("/")
-    data = {
-        "ride_id" : ride_id,
-        "pick_up_location" : request.form["pick_up_location"],
-        "details" : request.form["details"]
-    }
+    if not Ride.validate(request.form):
+        validation_failed(request.form)
+        return redirect(f"/rides_edit/{ride_id}")
+    data = validation_succeeded(request.form)
+    # data = {
+    #     "destination" : request.form["destination"],
+    #     "ride_id" : ride_id,
+    #     "pick_up_location" : request.form["pick_up_location"],
+    #     "details" : request.form["details"]
+    # }
     Ride.update(data)
     return redirect(f"/rides_one/{ride_id}")
 

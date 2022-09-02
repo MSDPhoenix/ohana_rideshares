@@ -15,6 +15,9 @@
         {% endif %}
     {% endwith %}
     <div class="row mx-5 px-5 mb-3">
+        <input type="hidden" name="destination" value="{{ride.destination}}">
+        <input type="hidden" name="date" value="{{ride.date}}">
+        <input type="hidden" name="ride_id" value="{{ride.id}}">
         <label for="pick_up_location" class="col-3 mb-3 py-2">Pick-up Location</label>
         <input type="text" name="pick_up_location" id="pick_up_location" class="col-9 mb-3 py-2"  value="{{ride.pick_up_location}}">
         <label for="details" class="col-3 mb-3 py-2">Details</label>
