@@ -85,7 +85,19 @@ class Ride:
                 SET driver_id = %(driver_id)s
                 WHERE id = %(ride_id)s;
                 """
-        return connectToMySQL(db).query_db(query,data)
+        connectToMySQL(db).query_db(query,data)
+
+    @classmethod
+    def update(cls,data):
+        query = """
+                UPDATE rides
+                SET 
+                pick_up_location=%(pick_up_location)s,
+                details=%(details)s
+                WHERE
+                id = %(ride_id)s
+                """
+        connectToMySQL(db).query_db(query,data)
 
     @classmethod
     def get_by_id(cls,data):

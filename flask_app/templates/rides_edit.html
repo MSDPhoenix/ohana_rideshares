@@ -6,7 +6,7 @@
     <a href="/dashboard/" class="ms-auto me-5">home</a>
     <a href="/logout/" class="ms-5">logout</a>
 </div>
-<form class="container" action="/rides_edit/{{ride.id}}" method="post">
+<form class="container" action="/rides_update/{{ride.id}}" method="post">
     {% with errors=get_flashed_messages(category_filter=["request"]) %}
         {% if errors %}
             {% for error in errors %}
@@ -19,10 +19,8 @@
         <input type="text" name="pick_up_location" id="pick_up_location" class="col-9 mb-3 py-2"  value="{{ride.pick_up_location}}">
         <label for="details" class="col-3 mb-3 py-2">Details</label>
         <textarea name="details" id="details" rows="5" class="col-9 mb-3 py-2">{{ride.details}}</textarea>
-        <!-- <input type="text" name="details" id="details" class="col-7 mb-3"  value="{{session['details']}}"> -->
         <input type="submit" value="Post" class="col-2 ms-auto">
     </div>
 </form>
-
 
 {% endblock body %}
