@@ -20,23 +20,24 @@ def validation_failed(data):
         session["details"] = data["details"]
 
 def validation_succeeded(data):
-    if "name" in session:
-        session.pop("name") # if name in session ??
+    if "destination" in session:
+        session.pop("destination")
     if "pick_up_location" in session:
         session.pop("pick_up_location")
     if "date" in session:
         session.pop("date")
     if "details" in session:
         session.pop("details")
-    data = {
+    new_data = {
         "destination" : data["destination"],
         "pick_up_location" : data["pick_up_location"],
         "details" : data["details"],
         "date" : data["date"],
-        "ride_id" : data["ride_id"],
-        "rider_id" : session["user_id"],   ######################
+        "rider_id" : session["user_id"],   
     }
-    return data
+    if "ride_id" in data:
+        new_data["ride_id"] = data["ride_id"]
+    return new_data
 
 @app.route("/rides_new/")
 def rides_new():
@@ -89,12 +90,6 @@ def rides_update(ride_id):
         validation_failed(request.form)
         return redirect(f"/rides_edit/{ride_id}")
     data = validation_succeeded(request.form)
-    # data = {
-    #     "destination" : request.form["destination"],
-    #     "ride_id" : ride_id,
-    #     "pick_up_location" : request.form["pick_up_location"],
-    #     "details" : request.form["details"]
-    # }
     Ride.update(data)
     return redirect(f"/rides_one/{ride_id}")
 

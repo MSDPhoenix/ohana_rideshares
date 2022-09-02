@@ -25,10 +25,7 @@ class Message:
                 # WHERE ride_id = %(ride_id)s;
         result = connectToMySQL(db).query_db(query,data)
         messages = []
-        print("A")
         for row in result:
-            for key in row:
-                print(key,"\t\t",row[key])
             this_message = cls(row)
             sender_data = {
                 "id" : row["sender_id"],

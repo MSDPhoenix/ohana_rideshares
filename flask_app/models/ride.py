@@ -4,6 +4,7 @@ from flask_app import app
 from flask_app.models import user
 from flask_app.models import message
 from flask_app.config.mysqlconnection import connectToMySQL
+from datetime import datetime
 db = "ohana_rideshares"
 
 class Ride:
@@ -133,42 +134,34 @@ class Ride:
         ride.driver = user.User(driver_data)
         return ride
 
-
-
-
-
-
     @staticmethod
     def validate(data):
         is_valid = True
         if len(data["destination"]) < 1:
-            flash("xxxx","request")
+            flash("Destination is required","request")
             is_valid = False
         elif len(data["destination"]) < 3:
-            flash("xxxx","request")
+            flash("Destination must be at least 3 characters","request")
             is_valid = False
         if len(data["pick_up_location"]) < 1:
-            flash("xxxx","request")
+            flash("Pick-up location is required","request")
             is_valid = False
         elif len(data["pick_up_location"]) < 3:
-            flash("xxxx","request")
+            flash("Pick-up location must be at least 3 characters","request")
             is_valid = False
         if len(data["details"]) < 1:
-            flash("xxxx","request")
+            flash("Details is required","request")
             is_valid = False
         elif len(data["details"]) < 10:
-            flash("xxxx","request")
+            flash("Details must be at least 10 characters","request")
             is_valid = False
         if len(data["date"]) < 1:
-            flash("xxxx","request")
+            flash("Date is required","request")
             is_valid = False
-        # elif len(data["details"]) < 3:
-        #     flash("xxxx","request")
-        #     is_valid = False
-        
-
-
-
+        elif len((data["date"])) == 10:
+            if datetime.strptime(data["date"],"%Y-%m-%d").date() <= datetime.today().date():
+                flash("Must use future date","request")
+                is_valid = False
         return is_valid
 
 

@@ -90,43 +90,43 @@ class User:
     def validate(data):
         is_valid = True
         if len(data["first_name"]) < 1:
-            flash("xxx","validate")
+            flash("First name required","validate")
             is_valid = False
         elif len(data["first_name"]) < 2:
-            flash("xxx","validate")
+            flash("First name must be at least 2 letters","validate")
             is_valid = False
         elif not data["first_name"].isalpha():
-            flash("xxx","validate")
+            flash("First name must contain letters only","validate")
             is_valid = False
         
         if len(data["last_name"]) < 1:
-            flash("xxx","validate")
+            flash("Last name required","validate")
             is_valid = False
         elif len(data["last_name"]) < 2:
-            flash("xxx","validate")
+            flash("Last name must be at least two letters","validate")
             is_valid = False
         elif not data["last_name"].isalpha():
-            flash("xxx","validate")
+            flash("Last name must contain letters only","validate")
             is_valid = False
         
         if len(data["email"]) < 1:
-            flash("xxx","validate")
+            flash("Email required","validate")
             is_valid = False
         elif not EMAIL_REGEX.match(data["email"]):
-            flash("xxx","validate")
+            flash("Must use valid email format","validate")
             is_valid = False
         elif User.get_by_email(data):
-            flash("xxx","validate")
+            flash("Email already registered","validate")
             is_valid = False
 
         if len(data["password"]) < 1:
-            flash("xxx","validate")
+            flash("Password required","validate")
             is_valid = False
-        elif len(data["email"]) < 8:
-            flash("xxx","validate")
+        elif len(data["password"]) < 8:
+            flash("Password must be at least 8 characters","validate")
             is_valid = False
         elif data["password"] != data["confirm_password"]:
-            flash("xxx","validate")
+            flash("Password does not match Confirm Password","validate")
             is_valid = False
         
         return is_valid

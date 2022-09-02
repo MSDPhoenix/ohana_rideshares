@@ -42,7 +42,6 @@ def register():
     session["user_id"] = user_id
     return redirect("/dashboard/")
 
-
 @app.route("/login/",methods=["POST"])
 def login():
     user = User.get_by_email(request.form)
