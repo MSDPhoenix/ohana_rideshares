@@ -5,7 +5,7 @@
     box-sizing: border-box;
     vertical-align: top;
     font-size:x-large;
-    outline:1px red dashed;
+    /* outline:1px red dashed; */
 }
 input, textarea {
     border:black 3px solid;
